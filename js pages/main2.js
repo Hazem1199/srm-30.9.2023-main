@@ -191,6 +191,7 @@ async function showInvoice(value) {
 
                 timeCell.innerHTML = formattedTimestamp;
                 noteCell.innerHTML = studentInvoice.Notes;
+                noteCell.setAttribute('dir', 'rtl')
                 AmountCell.innerHTML = studentInvoice.Amount;
                 serialCell.innerHTML = studentInvoice.autoSerial;
                 InvoiceTypeCell.innerHTML = studentInvoice.InvoiceType;
