@@ -3,16 +3,16 @@ const searchButton = document.querySelector('.search-button');
 
 
 async function getInfoDeadlines(id) {
-    const baseUrl = `https://script.google.com/macros/s/AKfycbxTI9S1emlI6Vls1ZVLIDRCpPlxKEXf7mRTjc8XaG7zXsXAVAGfhLeTUfoTnCfYQ2LlAQ/exec`;
-    let url = baseUrl;
-    if (id) {
-      url += `?id=${id}`;
-    }
-    const response = await fetch(url);
+  const baseUrl = `https://script.google.com/macros/s/AKfycbxTI9S1emlI6Vls1ZVLIDRCpPlxKEXf7mRTjc8XaG7zXsXAVAGfhLeTUfoTnCfYQ2LlAQ/exec`;
+  let url = baseUrl;
+  if (id) {
+    url += `?id=${id}`;
+  }
+  const response = await fetch(url);
   const data = await response.json();
   return data;
-  }
-  
+}
+
 
 var loadingDiv = document.querySelector('.loading-div')
 
@@ -29,48 +29,119 @@ overlay.style.zIndex = "1";
 document.body.appendChild(overlay);
 
 function change() {
-    loadingDiv.style.display = "block";
-    overlay.style.display = "block";
+  loadingDiv.style.display = "block";
+  overlay.style.display = "block";
 }
 
 function hide() {
-    overlay.style.display = "none";
-    loadingDiv.style.display = "none";
+  overlay.style.display = "none";
+  loadingDiv.style.display = "none";
 }
 
 
 async function showDeadlines(id) {
-    change();
-    const students = await getInfoDeadlines(id);
-    const tableBody = document.querySelector('.tbody1');
-    // Remove all existing rows from the table
-    while (tableBody.firstChild) {
-        tableBody.removeChild(tableBody.firstChild);
+  change();
+  const students = await getInfoDeadlines(id);
+  const tableBody = document.querySelector('.tbody1');
+  tableBody.innerHTML = '';
+
+  students.forEach(element => {
+    if (id == element.ID) {
+      const student = { DueDate: element[`Due Date`], Amount: element.Amount, Status: element.Status };
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td>${student.DueDate}</td>
+        <td>${student.Amount}</td>
+        <td>
+          <img src="${student.Status === "paid" ? "../imgs/correct.png" : "./imgs/png-transparent-computer-icons-ok-miscellaneous-trademark-cross.png"}" alt="${student.Status}" style="width: 7%">
+        </td>
+        <td>
+          <button id="payBtn" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            pay now!
+          </button>
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Please Fillfull All Inputs</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form method="POST" id="frmSubmit" >
+                      <div class="form-group form-floating">
+                        <input name="Name" type="number" placeholder="Amount" id="floatingInput" class="form-control" required>
+                        <label for="floatingInput">Amount</label>
+                      </div>
+                      <div class="form-floating mt-3">
+                        <select class="form-select" id="floatingSelect" >
+                          <option selected></option>
+                          <option value="1">Cash</option>
+                          <option value="2">Vodafone Cash</option>
+                          <option value="3">Bank Account</option>
+                          <option value="3">Online Payment</option>
+                        </select>
+                        <label for="floatingSelect">select cash type</label>
+                      </div>
+                      <div class="form-floating mt-3">
+                        <select class="form-select" id="floatingSelect" >
+                          <option selected></option>
+                          <option value="1">Payment</option>
+                          <option value="2">Certificate</option>
+                          <option value="3">Material</option>
+                        </select>
+                        <label for="floatingSelect">select invoice type</label>
+                      </div>
+                      <div class="form-floating mt-3">
+                        <select class="form-select" id="floatingSelect" >
+                          <option selected></option>
+                          <option value="1">ID</option>
+                          <option value="2">Retest</option>
+                          <option value="3">Lecture</option>
+                          <option value="3">Deadline</option>
+                          <option value="3">International Exam</option>
+                          <option value="3">HR Allowance</option>
+                        </select>
+                        <label for="floatingSelect">select Payment Sub-categories</label>
+                      </div>
+                      <div class="form-group mt-3 form-floating">
+                        <textarea name="Consultations" class="form-control" placeholder="Nots" id="Textarea" rows="5"></textarea>
+                        <label for="Textarea" class="form-label">Nots</label>
+                      </div>
+                      <div class="my-3">
+                        <div class="error-message"></div>
+                        <div dir="ltr" class="sent-message text-center alert alert-success d-none" id="success-msg">We will
+                          connect to you , Thank's</div>
+                        <div id="spinner-container"></div>
+                      </div>
+                      <div class="d-flex justify-content-center ">
+                        <button class="btn btn-primary scrollto btn-info text-light" id="btnSubmit"
+                          type="submit">Send</button>
+                      </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      `;
+
+      const payBtn = newRow.querySelector('#payBtn');
+      // const btndanger = newRow.querySelector('.btn-danger');
+      // const btnoutlinesuccess = newRow.querySelector('.btn-outline-success');
+      if (student.Status === "paid") {
+        payBtn.innerText = 'Paid';
+        // const renderedText = htmlElement.innerText;
+        payBtn.disabled = true;
+        payBtn.classList.add('btn-success');
+      }else{
+        payBtn.classList.add('btn-danger');
+      }
+
+      tableBody.appendChild(newRow);
     }
+  });
 
-    students.forEach(element => {
-        if (id == element.ID) {
-            const student = { DueDate: element[`Due Date`], Amount: element.Amount, Status: element.Status };
-            const newRow = document.createElement('tr');
-            const DueDateCell = document.createElement('td');
-            const AmountCell = document.createElement('td');
-            const StatusCell = document.createElement('td');
-            newRow.appendChild(DueDateCell);
-            newRow.appendChild(AmountCell);
-            newRow.appendChild(StatusCell);
-            DueDateCell.innerHTML = student.DueDate;
-            AmountCell.innerHTML = student.Amount;
-
-            // Create and append img element based on student.Status
-            const img = document.createElement('img');
-            img.src = student.Status === "paid" ? "../imgs/correct.png" : "./imgs/png-transparent-computer-icons-ok-miscellaneous-trademark-cross.png";
-            img.alt = student.Status;
-            img.style.width = "7%";
-            StatusCell.appendChild(img);
-            tableBody.appendChild(newRow);
-        }
-    });
-    hide(); // hide the loading overlay once the requests are shown
+  hide(); // hide the loading overlay once the requests are shown
 }
 
 var paramsDead = new URLSearchParams(window.location.search);
