@@ -125,14 +125,14 @@ async function display(value) {
             ReservationDate.innerHTML = user.ReservationDate.slice(0, 10);
         }
     });
-    more.style.display = "inline";
+    // more.style.display = "inline";
     hide();
 }
 
-moreBtn.addEventListener('click', () => {
-    emailcrd.style.display = "block";
-    // emailcrd.style.display = emailcrd.style.display === 'none' ? 'block' : 'none';
-});
+// moreBtn.addEventListener('click', () => {
+//     emailcrd.style.display = "block";
+//     // emailcrd.style.display = emailcrd.style.display === 'none' ? 'block' : 'none';
+// });
 
 
 
@@ -157,6 +157,8 @@ async function getInvoice(id) {
 
 
 async function showInvoice(value) {
+    change();
+
     try {
         const Invoices = await getInvoice(value);
         const tbodyInvoice = document.querySelector('.tbody2');
@@ -208,11 +210,13 @@ async function showInvoice(value) {
                 tbodyInvoice.appendChild(newRow);
             }
         });
+        hide();
 
 
     } catch (error) {
         console.log(error);
     }
+
 }
 
 
@@ -225,47 +229,47 @@ async function showInvoice(value) {
 var paramsGroup = new URLSearchParams(window.location.search);
 var value = paramsGroup.get('id');
 showInvoice(value);
-display(value);
+// display(value);
 
 
-searchButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    // sessionStorage.clear();
-    const value = searchInput[0].value;
-    if (value.trim() === "" || isNaN(value) || value.charAt(0) !== "2") {
-        // Create a Bootstrap alert message
-        const alertMessage = document.createElement("div");
-        alertMessage.classList.add("alert", "alert-danger");
-        alertMessage.textContent = "Please enter a valid Student Id";
-        alertMessage.style.width = "50%";
-        alertMessage.style.margin = "0 auto";
-        alertMessage.style.display = "flex";
-        alertMessage.style.alignItems = "center";
-        alertMessage.style.justifyContent = "center";
-        const section2 = document.querySelector(".section2");
-        section2.appendChild(alertMessage);
+// searchButton.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     // sessionStorage.clear();
+//     const value = searchInput[0].value;
+//     if (value.trim() === "" || isNaN(value) || value.charAt(0) !== "2") {
+//         // Create a Bootstrap alert message
+//         const alertMessage = document.createElement("div");
+//         alertMessage.classList.add("alert", "alert-danger");
+//         alertMessage.textContent = "Please enter a valid Student Id";
+//         alertMessage.style.width = "50%";
+//         alertMessage.style.margin = "0 auto";
+//         alertMessage.style.display = "flex";
+//         alertMessage.style.alignItems = "center";
+//         alertMessage.style.justifyContent = "center";
+//         const section2 = document.querySelector(".section2");
+//         section2.appendChild(alertMessage);
 
-        // Hide the alert message after half a second
-        setTimeout(() => {
-            alertMessage.style.display = "none";
-        }, 2000);
-        //display all boxes in this case
-        fName.innerHTML = " ";
-        ID.innerHTML = " ";
-        Email.innerHTML = " ";
-        Phone.innerHTML = " ";
-        headName.innerHTML = " ";
-        pic.src = " ";
+//         // Hide the alert message after half a second
+//         setTimeout(() => {
+//             alertMessage.style.display = "none";
+//         }, 2000);
+//         //display all boxes in this case
+//         fName.innerHTML = " ";
+//         ID.innerHTML = " ";
+//         Email.innerHTML = " ";
+//         Phone.innerHTML = " ";
+//         headName.innerHTML = " ";
+//         pic.src = " ";
 
 
-        // Stop all functions from another JavaScript file
-        return;
-    } else {
+//         // Stop all functions from another JavaScript file
+//         return;
+//     } else {
 
-        display(value);
-        // showInvoice(value);
-    }
-});
+//         display(value);
+//         // showInvoice(value);
+//     }
+// });
 
 // add an event listener to the window object to run the `change()` function when a new window is opened
 window.addEventListener('open', change);
@@ -273,26 +277,26 @@ window.addEventListener('open', change);
 window.onload = function () {
     const sidebar = document.querySelector(".sidebar");
     const closeBtn = document.querySelector("#btn");
-    const searchBtn = document.querySelector(".bx-search")
+    const searchBtn = document.querySelector(".bx-search");
 
     closeBtn.addEventListener("click", function () {
-        sidebar.classList.toggle("open")
-        menuBtnChange()
-    })
+        sidebar.classList.toggle("open");
+        menuBtnChange();
+    });
 
     // searchBtn.addEventListener("click", function () {
-    //     sidebar.classList.toggle("open")
-    //     menuBtnChange()
-    // })
+    //   sidebar.classList.toggle("open");
+    //   menuBtnChange();
+    // });
 
     function menuBtnChange() {
         if (sidebar.classList.contains("open")) {
-            closeBtn.classList.replace("bx-menu", "bx-menu-alt-right")
+            closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");
         } else {
-            closeBtn.classList.replace("bx-menu-alt-right", "bx-menu")
+            closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");
         }
     }
-}
+};
 
 
 const welcome = document.querySelector('.Welcome');

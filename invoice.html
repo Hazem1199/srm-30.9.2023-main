@@ -120,104 +120,132 @@
 
 
 
-            <div class="section">
-                <!-- <div class="Welcome mt-10 ">Welcome </div> -->
-                <div class="section2" style="display: flex;">
-                    <div class="alertMessage"></div>
-                </div>
-                <div class="profile-page  ">
+            <!-- <div class="section"> -->
+            <!-- <div class="Welcome mt-10 ">Welcome </div> -->
+            <div class="section2" style="display: flex;">
+                <!-- <div class="alertMessage"></div> -->
+            </div>
+            <div class="profile-page m-20">
+                <!-- Start Overview -->
 
-                    <!-- Start Overview -->
-                    <div class="overview bg-white rad-10 d-flex align-center">
-                        <div class="avatar-box txt-c p-20">
-                            <img id="profile-pic" class="rad-half mb-10" src="" alt="" />
-                            <h5 class="m-0 headName"></h5>
-                            <p class="c-grey mt-10">70%</p>
-                            <div class="level rad-6 bg-eee p-relative">
-                                <span style="width: 70%"></span>
+                <!-- End Overview -->
+                <!-- Start Other Data -->
+
+                <div class="activities p-20 bg-white rad-10 mt-20">
+                    <div class="box">
+                        <!-- <h2 class="mt-0 mb-10">Deadline</h2> -->
+                        <!-- <button id="openPopupButton">Add Complaint</button> -->
+                        <div id="popupContainer">
+                            <div id="popup">
+                                <form id="myForm">
+                                    <label for="inputField">Deadline :</label>
+                                    <input type="text" id="Complaint" name="Complaint">
+
+
+                                    <br>
+                                    <input type="submit" value="Submit">
+                                </form>
                             </div>
                         </div>
-                        <div class="info-box w-full txt-c-mobile">
-                            <!-- Start Information Row -->
-                            <div class="box p-20 d-flex align-center">
-                                <h4 class="c-grey fs-15 m-0 w-full">General & Personal Information</h4>
+                    </div>
+                    <!-- card of ditals -->
 
-                                <div class="d-flex">
-                                    <div class="space-between">
-                                        <div class="fs-14 pb-10" id="FN">
-                                            <span class="c-grey">Full Name:</span>
-                                            <span class="fName"> </span>
+                    <div class="d-flex">
+                        <h2 class="mt-2 mb-1 mx-4 fw-bold">Invoice</h2>
+                        <button id="payBtn" type="button" class="btn fw-bold btn-danger p-1 mt-2"
+                                data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                pay now
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Please Fillfull All
+                                                Inputs</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
-                                        <div class="fs-14 ">
-                                            <span class="c-grey">Date Of Birth:</span>
-                                            <span class="DOB"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex">
-                                    <div class="space-between">
-                                        <div class="fs-14 pb-10">
-                                            <span class="c-grey">Student No:</span>
-                                            <span class="ID"> </span>
-                                        </div>
-                                        <div class="fs-14">
-                                            <span class="c-grey ">ID Number:</span>
-                                            <span class="IdNumber"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="d-flex">
-                                    <div class="space-between">
-                                        <div class="fs-14 pb-10">
-                                            <span class="c-grey">Email:</span>
-                                            <span class="Email"></span>
-
-                                            <a href="" class="more-btn more" type="button" data-bs-toggle="modal"
-                                                style="display: none;" data-bs-target="#exampleModal">more..</a>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Emails
-                                                            </h1>
-                                                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                  aria-label="Close"></button> -->
-                                                        </div>
-                                                        <div class="modal-body email-crd">
-                                                            ...
-                                                        </div>
-                                                        <!--<div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                 <button type="button" class="btn btn-primary">Save changes</button> 
-                              </div>-->
-                                                    </div>
+                                        <div class="modal-body">
+                                            <form method="POST" id="frmSubmit">
+                                                <div class="form-group form-floating">
+                                                    <input name="Name" type="number" placeholder="Amount"
+                                                        id="floatingInput" class="form-control" required>
+                                                    <label for="floatingInput">Amount</label>
                                                 </div>
-                                            </div>
-                                            <!-- <div style="min-height: 120px; display: none; z-index: 1" class="email-crd">
-                          <div class="collapse collapse-horizontal" id="collapseWidthExample">
-                            <div class="card card-body " style="width: 300px;"> </div>
-                          </div>
-                        </div> -->
-
-                                        </div>
-                                        <div class="fs-14">
-                                            <span class="c-grey">Phone:</span>
-                                            <span class="Phone"></span>
+                                                <div class="form-floating mt-3">
+                                                    <select class="form-select" id="floatingSelect">
+                                                        <option selected></option>
+                                                        <option value="1">Cash</option>
+                                                        <option value="2">Vodafone Cash</option>
+                                                        <option value="3">Bank Account</option>
+                                                        <option value="3">Online Payment</option>
+                                                    </select>
+                                                    <label for="floatingSelect">select cash type</label>
+                                                </div>
+                                                <div class="form-floating mt-3">
+                                                    <select class="form-select" id="floatingSelect">
+                                                        <option selected>Payment</option>
+                                                    </select>
+                                                    <label for="floatingSelect">select invoice type</label>
+                                                </div>
+                                                <div class="form-floating mt-3">
+                                                    <select class="form-select" id="floatingSelect">
+                                                        <option selected>Deadline</option>
+                                                    </select>
+                                                    <label for="floatingSelect">select Payment Sub-categories</label>
+                                                </div>
+                                                <div class="form-group mt-3 form-floating">
+                                                    <textarea name="Consultations" class="form-control"
+                                                        placeholder="Nots" id="Textarea" rows="5"></textarea>
+                                                    <label for="Textarea" class="form-label">Nots</label>
+                                                </div>
+                                                <div class="my-3">
+                                                    <div class="error-message"></div>
+                                                    <div dir="ltr"
+                                                        class="sent-message text-center alert alert-success d-none"
+                                                        id="success-msg">We will
+                                                        connect to you , Thank's</div>
+                                                    <div id="spinner-container"></div>
+                                                </div>
+                                                <div class="d-flex justify-content-center ">
+                                                    <button class="btn btn-primary scrollto btn-info text-light"
+                                                        id="btnSubmit" type="submit">Send</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="fs-14">
-                <label>
-                  <input class="toggle-checkbox" type="checkbox" checked />
-                  <div class="toggle-switch"></div>
-                </label>
-              </div> -->
                             </div>
+
+
+
+                    </div>
+                    <!-- mini cards -->
+                    <div class="activities p-20  rad-10 ">
+                        <div class="main d-flex justify-content-around  ">
+
+                        </div>
+
+                        <div class="main d-flex justify-content-around mt-10  ">
+
+                            <div class="card-body text-center">
+                                <table class="table table-bordered invoiceTable">
+                                    <thead class="table-head-c text-light">
+                                        <tr>
+                                            <th scope="col">Time</th>
+                                            <th scope="col">Note</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Serial</th>
+                                            <th scope="col">Invoice Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbody2 text-center">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- End Other Data -->
                             <!-- loading -->
                             <div class="loading-div">
                                 <div class="loadingio-spinner-double-ring-h4svqtjo686">
@@ -234,142 +262,23 @@
                                 </div>
                             </div>
 
-
-
-
-                            <!-- End Information Row -->
-                            <!-- Start Information Row -->
-                            <!-- <div class="box p-20 d-flex align-center">
-              <h4 class="c-grey w-full fs-15 m-0">Personal Information</h4> -->
-
-                            <!-- <div class="fs-14">
-                <label>
-                  <input class="toggle-checkbox" type="checkbox" />
-                  <div class="toggle-switch"></div>
-                </label>
-              </div> -->
-                            <!-- </div> -->
-                            <!-- End Information Row -->
-                            <!-- Start Information Row -->
-                            <div class="box p-20 d-flex align-center">
-                                <h4 class="c-grey w-full fs-15 m-0">Scolarship & Reserv Information</h4>
-                                <div class="fs-14">
-                                    <span class="c-grey">Reservation Date:</span>
-                                    <span class="ReservationDate"></span>
-                                </div>
-                                <div class="fs-14">
-                                    <span class="c-grey">Grade: </span>
-                                    <span class="Grade"></span>
-                                </div>
-                                <div class="fs-14">
-                                    <span class="c-grey">Scholarship: </span>
-                                    <span class="Scholarship"></span>
-                                </div>
-                                <div class="fs-14">
-                                    <span class="c-grey">Receptionist: </span>
-                                    <span class="Receptionist"></span>
-                                </div>
-                                <div class="fs-14">
-                                    <span class="c-grey">Reserver: </span>
-                                    <span class="Reserver"></span>
-                                </div>
-                                <div class="fs-14">
-                                    <span class="c-grey">CC Agent: </span>
-                                    <span class="CCAgent"></span>
-                                </div>
-                                <!-- <div class="fs-14">
-                <label>
-                  <input class="toggle-checkbox" type="checkbox" checked />
-                  <div class="toggle-switch"></div>
-                </label>
-              </div> -->
-                            </div>
-                            <!-- End Information Row -->
-
-                        </div>
-                    </div>
-                    <!-- End Overview -->
-                    <!-- Start Other Data -->
-                    <div class="other-data  gap-20 ">
-                        <div class="skills-card bg-blue rad-10">
-                            <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
-                                <div class="container">
-                                    <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">
-                                    </a>
-                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                        aria-expanded="false" aria-label="Toggle navigation"><span
-                                            class="navbar-toggler-icon"></span></button>
-                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                        <ul class="navbar-nav mx-auto justify-content-center">
-                                            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase homeBtn"
-                                                    href="./SRM.html">Home</a></li>
-                                            <li class="nav-item px-lg-4"><a class="nav-link text-uppercase invoiceBtn"
-                                                    href="#">Invoice</a></li>
-                                            <!-- <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="#">Products</a></li> -->
-                                            <!-- <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="#">Store</a></li> -->
-                                        </ul>
-                                    </div>
-                                </div>
-                            </nav>
-
-                            <!-- list of sidebar -->
-
-                        </div>
-                        <!-- mini cards -->
-                        <div class="activities p-20  rad-10 ">
-                            <div class="main d-flex justify-content-around  ">
-
-                            </div>
-
-                            <div class="main d-flex justify-content-around mt-10  ">
-
-                                <div class="card-body text-center">
-                                    <table class="table table-bordered invoiceTable">
-                                        <thead class="table-head-c text-light">
-                                            <tr>
-                                                <th scope="col">Time</th>
-                                                <th scope="col">Note</th>
-                                                <th scope="col">Amount</th>
-                                                <th scope="col">Serial</th>
-                                                <th scope="col">Invoice Type</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="tbody2 text-center">
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- End Other Data -->
-                                <!-- loading -->
-                                <div class="loading-div">
-                                    <div class="loadingio-spinner-double-ring-h4svqtjo686">
-                                        <div class="ldio-fm0nm98m936">
-                                            <div></div>
-                                            <div></div>
-                                            <div>
-                                                <div></div>
-                                            </div>
-                                            <div>
-                                                <div></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- card of ditals -->
-
-                        <div class="activities p-20  rad-10 ">
-
                         </div>
                     </div>
                     <!-- End Other Data -->
                 </div>
             </div>
+
+
+            <!-- card of ditals -->
+
+            <div class="activities p-20  rad-10 ">
+
+            </div>
+            <!-- </div> -->
+            <!-- End Other Data -->
         </div>
+    </div>
+    </div>
 
 
     </div>

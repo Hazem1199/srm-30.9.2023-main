@@ -45,16 +45,15 @@ async function showDeadlines(id) {
   const tableBody = document.querySelector('.tbody1');
   tableBody.innerHTML = '';
 
-  students.forEach(element => {
-    if (id == element.ID) {
-      const student = { DueDate: element[`Due Date`], Amount: element.Amount, Status: element.Status };
+  
+  students.forEach((element) => {
+    if (id == element.ID ) {
+      const student = { DueDate: element[`Due Date`] , Amount: element.Amount , Status: element.Status };
       const newRow = document.createElement('tr');
       newRow.innerHTML = `
         <td>${student.DueDate}</td>
         <td>${student.Amount}</td>
-        <td>
-          <img src="${student.Status === "paid" ? "../imgs/correct.png" : "./imgs/png-transparent-computer-icons-ok-miscellaneous-trademark-cross.png"}" alt="${student.Status}" style="width: 7%">
-        </td>
+        
         <td>
           <button id="payBtn" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
             pay now!
@@ -69,7 +68,7 @@ async function showDeadlines(id) {
                 <div class="modal-body">
                   <form method="POST" id="frmSubmit" >
                       <div class="form-group form-floating">
-                        <input name="Name" type="number" placeholder="Amount" id="floatingInput" class="form-control" required>
+                        <input name="Name" type="number" placeholder="Amount" id="floatingInput" class="form-control"  required>
                         <label for="floatingInput">Amount</label>
                       </div>
                       <div class="form-floating mt-3">
@@ -84,22 +83,13 @@ async function showDeadlines(id) {
                       </div>
                       <div class="form-floating mt-3">
                         <select class="form-select" id="floatingSelect" >
-                          <option selected></option>
-                          <option value="1">Payment</option>
-                          <option value="2">Certificate</option>
-                          <option value="3">Material</option>
+                          <option selected>Payment</option>
                         </select>
                         <label for="floatingSelect">select invoice type</label>
                       </div>
                       <div class="form-floating mt-3">
                         <select class="form-select" id="floatingSelect" >
-                          <option selected></option>
-                          <option value="1">ID</option>
-                          <option value="2">Retest</option>
-                          <option value="3">Lecture</option>
-                          <option value="3">Deadline</option>
-                          <option value="3">International Exam</option>
-                          <option value="3">HR Allowance</option>
+                          <option selected>Deadline</option>
                         </select>
                         <label for="floatingSelect">select Payment Sub-categories</label>
                       </div>
@@ -124,8 +114,9 @@ async function showDeadlines(id) {
           </div>
         </td>
       `;
-
+      
       const payBtn = newRow.querySelector('#payBtn');
+      const floatingInput = document.querySelector('#floatingInput');
       // const btndanger = newRow.querySelector('.btn-danger');
       // const btnoutlinesuccess = newRow.querySelector('.btn-outline-success');
       if (student.Status === "paid") {
@@ -135,6 +126,7 @@ async function showDeadlines(id) {
         payBtn.classList.add('btn-success');
       }else{
         payBtn.classList.add('btn-danger');
+        floatingInput.value = student.Amount
       }
 
       tableBody.appendChild(newRow);
@@ -174,3 +166,12 @@ window.onload = function () {
     }
   }
 }
+
+
+
+
+
+
+// <td>
+//           <img src="${student.Status === "paid" ? "../imgs/correct.png" : "./imgs/png-transparent-computer-icons-ok-miscellaneous-trademark-cross.png"}" alt="${student.Status}" style="width: 7%">
+//         </td>
