@@ -232,6 +232,77 @@ showInvoice(value);
 // display(value);
 
 
+// form submition
+jQuery('#frmSubmit').on('submit', function (e) {
+    e.preventDefault();
+    jQuery.ajax({
+        url: 'https://script.google.com/macros/s/AKfycbytlYxtnL1itZablK2TT4B6Mm2e6EWFSn-PYrVtIb5hT43gsJR1cqa3zR-C80UpNe6sVQ/exec',
+        type: 'post',
+        data: jQuery('#frmSubmit').serialize(),
+        beforeSend: function () {
+            var spinner = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+            jQuery('#spinner-container').html(spinner);
+        },
+        success: function (result) {
+            jQuery('#frmSubmit')[0].reset();
+            // Display success message here
+            jQuery('#msg').html('Data sent successfully.');
+        },
+        error: function () {
+            jQuery('#msg').html('An error occurred. Please try again.');
+        },
+        complete: function () {
+            jQuery('#spinner-container').empty();
+        }
+    });
+});
+
+
+
+// make sub cat none in some condition 
+const selectElement = document.querySelector('#floatingSelect[name="type"]');
+const secondDiv = document.querySelector('#floatingSelect[name="payment sub cat"]');
+
+selectElement.addEventListener('change', (event) => {
+    if (event.target.value === 'Payment' ) {
+        secondDiv.style.display = 'block';
+    } else {
+        secondDiv.style.display = 'none';
+    }
+});
+
+
+
+// const form = document.getElementById("myForm");
+
+// form.addEventListener("submit", (event) => {
+//     event.preventDefault(); // prevent default form submission behavior
+
+//     const formData = new FormData(form); // create FormData object from form data
+
+//     const url = "https://script.google.com/macros/s/AKfycbxuGH2guvDWHffppqiVe3CTCDLJwwaVzEenw290Lk7nvTznvfq06Sd7QH7oNYr2cikiqg/exec";
+
+//     fetch(url, {
+//         method: "POST",
+//         body: formData,
+//         headers: {
+//             "Content-Type": "application/x-www-form-urlencoded",
+//         },
+//     })
+//         .then(response => {
+//             if (response.ok) {
+//                 // display success message to user
+//                 alert("Payment added successfully!");
+//             } else {
+//                 throw new Error("Network response was not ok");
+//             }
+//         })
+//         .catch(error => {
+//             console.error("Error submitting form:", error);
+//         });
+// });
+
+
 // searchButton.addEventListener("click", (e) => {
 //     e.preventDefault();
 //     // sessionStorage.clear();

@@ -45,10 +45,10 @@ async function showDeadlines(id) {
   const tableBody = document.querySelector('.tbody1');
   tableBody.innerHTML = '';
 
-  
+
   students.forEach((element) => {
-    if (id == element.ID ) {
-      const student = { DueDate: element[`Due Date`] , Amount: element.Amount , Status: element.Status };
+    if (id == element.ID) {
+      const student = { DueDate: element[`Due Date`], Amount: element.Amount, Status: element.Status };
       const newRow = document.createElement('tr');
       newRow.innerHTML = `
         <td>${student.DueDate}</td>
@@ -68,31 +68,38 @@ async function showDeadlines(id) {
                 <div class="modal-body">
                   <form method="POST" id="frmSubmit" >
                       <div class="form-group form-floating">
-                        <input name="Name" type="number" placeholder="Amount" id="floatingInput" class="form-control"  required>
+                        <input name="Amount" type="number" placeholder="Amount" id="floatingInput" class="form-control"  required>
                         <label for="floatingInput">Amount</label>
                       </div>
                       <div class="form-floating mt-3">
-                        <select class="form-select" id="floatingSelect" >
+                        <select class="form-select" id="floatingSelect" name="Cash type">
                           <option selected></option>
-                          <option value="1">Cash</option>
-                          <option value="2">Vodafone Cash</option>
-                          <option value="3">Bank Account</option>
-                          <option value="3">Online Payment</option>
+                          <option value="Cash">Cash</option>
+                          <option value="Vodafone Cash">Vodafone Cash</option>
+                          <option value="Bank Account">Bank Account</option>
+                          <option value="Online Payment">Online Payment</option>
                         </select>
                         <label for="floatingSelect">select cash type</label>
                       </div>
                       <div class="form-floating mt-3">
-                        <select class="form-select" id="floatingSelect" >
+                        <select class="form-select" id="floatingSelect" name="type">
                           <option selected>Payment</option>
                         </select>
                         <label for="floatingSelect">select invoice type</label>
                       </div>
                       <div class="form-floating mt-3">
-                        <select class="form-select" id="floatingSelect" >
+                        <select class="form-select" id="floatingSelect" name="payment sub cat">
                           <option selected>Deadline</option>
                         </select>
                         <label for="floatingSelect">select Payment Sub-categories</label>
                       </div>
+
+                      <div class="form-group form-floating" style="display: ;">
+                        <input name="Deadline Date" type="text" placeholder="Amount" id="SelectDueDate" class="form-control"  >
+                        <label for="SelectDueDate">Amount</label>
+                      </div>
+
+
                       <div class="form-group mt-3 form-floating">
                         <textarea name="Consultations" class="form-control" placeholder="Nots" id="Textarea" rows="5"></textarea>
                         <label for="Textarea" class="form-label">Nots</label>
@@ -114,9 +121,10 @@ async function showDeadlines(id) {
           </div>
         </td>
       `;
-      
+
       const payBtn = newRow.querySelector('#payBtn');
       const floatingInput = document.querySelector('#floatingInput');
+      const SelectDueDate = document.querySelector('#SelectDueDate');
       // const btndanger = newRow.querySelector('.btn-danger');
       // const btnoutlinesuccess = newRow.querySelector('.btn-outline-success');
       if (student.Status === "paid") {
@@ -124,13 +132,41 @@ async function showDeadlines(id) {
         // const renderedText = htmlElement.innerText;
         payBtn.disabled = true;
         payBtn.classList.add('btn-success');
-      }else{
+      } else {
         payBtn.classList.add('btn-danger');
         floatingInput.value = student.Amount
+        SelectDueDate.value=student.DueDate
+
       }
 
       tableBody.appendChild(newRow);
     }
+  });
+
+  
+  const frmSubmit = document.querySelector("#frmSubmit")
+  jQuery(frmSubmit).on('submit', function (e) {
+    e.preventDefault();
+    jQuery.ajax({
+      url: 'https://script.google.com/macros/s/AKfycbytlYxtnL1itZablK2TT4B6Mm2e6EWFSn-PYrVtIb5hT43gsJR1cqa3zR-C80UpNe6sVQ/exec',
+      type: 'post',
+      data: jQuery('#frmSubmit').serialize(),
+      beforeSend: function () {
+        var spinner = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+        jQuery('#spinner-container').html(spinner);
+      },
+      success: function (result) {
+        jQuery('#frmSubmit')[0].reset();
+        // Display success message here
+        jQuery('#msg').html('Data sent successfully.');
+      },
+      error: function () {
+        jQuery('#msg').html('An error occurred. Please try again.');
+      },
+      complete: function () {
+        jQuery('#spinner-container').empty();
+      }
+    });
   });
 
   hide(); // hide the loading overlay once the requests are shown
@@ -139,6 +175,8 @@ async function showDeadlines(id) {
 var paramsDead = new URLSearchParams(window.location.search);
 var id = paramsDead.get('id');
 showDeadlines(id);
+
+
 
 // add an event listener to the window object to run the `change()` function when a new window is opened
 window.addEventListener('open', change);
