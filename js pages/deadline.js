@@ -38,6 +38,7 @@ function hide() {
   loadingDiv.style.display = "none";
 }
 
+const pushObj = [];
 
 async function showDeadlines(id) {
   change();
@@ -45,11 +46,18 @@ async function showDeadlines(id) {
   const tableBody = document.querySelector('.tbody1');
   tableBody.innerHTML = '';
 
+  for (let i = 0; i < students.length; i++) {
+    if (id == students[i].ID) {
+      const student = {
+        DueDate: students[i]['Due Date'],
+        Amount: students[i].Amount,
+        Status: students[i].Status,
+      };
 
-  students.forEach((element) => {
-    if (id == element.ID) {
-      const student = { DueDate: element[`Due Date`], Amount: element.Amount, Status: element.Status };
+      pushObj.push(students[i]['Due Date'])
+      console.log(pushObj);
       const newRow = document.createElement('tr');
+      console.log(student.DueDate);
       newRow.innerHTML = `
         <td>${student.DueDate}</td>
         <td>${student.Amount}</td>
@@ -95,7 +103,7 @@ async function showDeadlines(id) {
                       </div>
 
                       <div class="form-group form-floating" style="display: ;">
-                        <input name="Deadline Date" type="text" placeholder="Amount" id="SelectDueDate" class="form-control"  >
+                        <input name="Deadline Date" type="text" placeholder="Amount" id="SelectDueDate" class="form-control"  value =${students[i]['Due Date']} >
                         <label for="SelectDueDate">Amount</label>
                       </div>
 
@@ -123,8 +131,7 @@ async function showDeadlines(id) {
       `;
 
       const payBtn = newRow.querySelector('#payBtn');
-      const floatingInput = document.querySelector('#floatingInput');
-      const SelectDueDate = document.querySelector('#SelectDueDate');
+
       // const btndanger = newRow.querySelector('.btn-danger');
       // const btnoutlinesuccess = newRow.querySelector('.btn-outline-success');
       if (student.Status === "paid") {
@@ -134,16 +141,32 @@ async function showDeadlines(id) {
         payBtn.classList.add('btn-success');
       } else {
         payBtn.classList.add('btn-danger');
-        floatingInput.value = student.Amount
-        SelectDueDate.value=student.DueDate
+        // floatingInput.value = students[i].Amount
+        // SelectDueDate.value=students[i]['Due Date']
 
       }
 
+      // Add a click event listener to the button.
+    payBtn.addEventListener('click', () => {
+      // Get the "SelectDueDate" element.
+      const selectDueDate = document.querySelector('#SelectDueDate');
+      const floatingInput = document.querySelector('#floatingInput');
+
+      // Set the value of the "SelectDueDate" element to the due date of the student in the current row.
+      selectDueDate.value = students[i]['Due Date'];
+        floatingInput.value = students[i].Amount
+
+    });
+
       tableBody.appendChild(newRow);
     }
-  });
 
-  
+    
+
+
+  };
+
+
   const frmSubmit = document.querySelector("#frmSubmit")
   jQuery(frmSubmit).on('submit', function (e) {
     e.preventDefault();
