@@ -231,8 +231,11 @@ var value = paramsGroup.get('id');
 showInvoice(value);
 // display(value);
 
+const payBtnInvoice = document.querySelector('#payBtnInvoice');
 
-// form submition
+
+
+const alertMsg = document.querySelector('.alertMsg');
 jQuery('#frmSubmit').on('submit', function (e) {
     e.preventDefault();
     jQuery.ajax({
@@ -246,16 +249,68 @@ jQuery('#frmSubmit').on('submit', function (e) {
         success: function (result) {
             jQuery('#frmSubmit')[0].reset();
             // Display success message here
-            jQuery('#msg').html('Data sent successfully.');
+            alertMsg.classList.add('alert', 'alert-success');
+            alertMsg.style.width = '25%';
+            alertMsg.style.position = 'fixed';
+            alertMsg.style.top = '0';
+            alertMsg.style.left = '0';
+            alertMsg.style.margin = '20px';
+            alertMsg.style.transition = "all 0.5s ease-in-out";
+            alertMsg.innerHTML = '<strong>Success!</strong> Payment added successfully.';
+            alertMsg.style.display = "block";
+            alertMsg.style.opacity = "0";
+            setTimeout(function () {
+                alertMsg.style.opacity = "1";
+            }, 10);
+            setTimeout(function () {
+                alertMsg.style.display = "none";
+            }, 2000);
         },
         error: function () {
-            jQuery('#msg').html('An error occurred. Please try again.');
+            // Display error message here
+            alertMsg.classList.add('alert', 'alert-danger');
+            alertMsg.style.width = '25%';
+            alertMsg.style.position = 'fixed';
+            alertMsg.style.top = '0';
+            alertMsg.style.left = '0';
+            alertMsg.style.transition = "all 0.5s ease-in-out";
+            alertMsg.innerHTML = '<strong>Error!</strong> An error occurred. Please try again.';
+            alertMsg.style.display = "block";
+            alertMsg.style.opacity = "0";
+            setTimeout(function () {
+                alertMsg.style.opacity = "1";
+            }, 10);
+            setTimeout(function () {
+                alertMsg.style.display = "none";
+            }, 2000);
         },
         complete: function () {
             jQuery('#spinner-container').empty();
         }
     });
 });
+
+payBtnInvoice.addEventListener('click', () => {
+    //import any data 
+    const id = sessionStorage.getItem("idToPass");
+    const ScholarshipToPass = sessionStorage.getItem("ScholarshipToPass");
+    const ReceptionistToPass = sessionStorage.getItem("ReceptionistToPass");
+    console.log(id , ScholarshipToPass , ReceptionistToPass);
+
+    // Get the "SelectDueDate" element. 
+    const StudentNUM = document.querySelector('#StudentNUM');
+    const Scholarship = document.querySelector('#Scholarship');
+    const Reception = document.querySelector('#Reception');
+    const fresh = document.querySelector('#fresh');
+
+    // Set the value of the "SelectDueDate" element to the due date of the student in the current row.
+    StudentNUM.value = id;
+    Scholarship.value = ScholarshipToPass;
+    Reception.value = ReceptionistToPass;
+    fresh.value = 'Student';
+
+});
+
 
 
 
@@ -264,7 +319,7 @@ const selectElement = document.querySelector('#floatingSelect[name="type"]');
 const secondDiv = document.querySelector('#floatingSelect[name="payment sub cat"]');
 
 selectElement.addEventListener('change', (event) => {
-    if (event.target.value === 'Payment' ) {
+    if (event.target.value === 'Payment') {
         secondDiv.style.display = 'block';
     } else {
         secondDiv.style.display = 'none';

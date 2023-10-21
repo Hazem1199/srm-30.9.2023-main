@@ -67,6 +67,7 @@ async function showDeadlines(id) {
             pay now!
           </button>
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="alertMsg"></div>
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
@@ -102,14 +103,30 @@ async function showDeadlines(id) {
                         <label for="floatingSelect">select Payment Sub-categories</label>
                       </div>
 
-                      <div class="form-group form-floating" style="display: ;">
+                      <div class="form-group form-floating" style="display:none ;">
                         <input name="Deadline Date" type="text" placeholder="Amount" id="SelectDueDate" class="form-control"  value =${students[i]['Due Date']} >
                         <label for="SelectDueDate">Amount</label>
+                      </div>
+                      <div class="form-group form-floating" style="display:none ;">
+                        <input name="Student NUM" type="text" placeholder="Amount" id="StudentNUM" class="form-control" >
+                        <label for="StudentNUM">Amount</label>
+                      </div>
+                      <div class="form-group form-floating" style="display:none ;">
+                        <input name="Scholarship" type="text" placeholder="Scholarship" id="Scholarship" class="form-control" >
+                        <label for="Scholarship">Scholarship</label>
+                      </div>
+                      <div class="form-group form-floating" style="display:none ;">
+                        <input name="Reception" type="text" placeholder="Scholarship" id="Reception" class="form-control" >
+                        <label for="Reception">Scholarship</label>
+                      </div>
+                      <div class="form-group form-floating" style="display:none ;">
+                        <input name="Fesh/St" type="text" placeholder="Scholarship" id="fresh" class="form-control" >
+                        <label for="fresh">Scholarship</label>
                       </div>
 
 
                       <div class="form-group mt-3 form-floating">
-                        <textarea name="Consultations" class="form-control" placeholder="Nots" id="Textarea" rows="5"></textarea>
+                        <textarea name="Note" class="form-control" placeholder="Nots" id="Textarea" rows="5"></textarea>
                         <label for="Textarea" class="form-label">Nots</label>
                       </div>
                       <div class="my-3">
@@ -131,6 +148,8 @@ async function showDeadlines(id) {
       `;
 
       const payBtn = newRow.querySelector('#payBtn');
+      const first = tableBody.children[0]
+      console.log(first);
 
       // const btndanger = newRow.querySelector('.btn-danger');
       // const btnoutlinesuccess = newRow.querySelector('.btn-outline-success');
@@ -147,28 +166,42 @@ async function showDeadlines(id) {
       }
 
       // Add a click event listener to the button.
-    payBtn.addEventListener('click', () => {
-      // Get the "SelectDueDate" element.
-      const selectDueDate = document.querySelector('#SelectDueDate');
-      const floatingInput = document.querySelector('#floatingInput');
+      payBtn.addEventListener('click', () => {
+        //import any data 
+        const id = sessionStorage.getItem("idToPass");
+        const ScholarshipToPass = sessionStorage.getItem("ScholarshipToPass");
+        const ReceptionistToPass = sessionStorage.getItem("ReceptionistToPass");
 
-      // Set the value of the "SelectDueDate" element to the due date of the student in the current row.
-      selectDueDate.value = students[i]['Due Date'];
-        floatingInput.value = students[i].Amount
+        // Get the "SelectDueDate" element. 
+        const selectDueDate = document.querySelector('#SelectDueDate');
+        const floatingInput = document.querySelector('#floatingInput');
+        const StudentNUM = document.querySelector('#StudentNUM');
+        const Scholarship = document.querySelector('#Scholarship');
+        const Reception = document.querySelector('#Reception');
+        const fresh = document.querySelector('#fresh');
 
-    });
+        // Set the value of the "SelectDueDate" element to the due date of the student in the current row.
+        selectDueDate.value = students[i]['Due Date'];
+        floatingInput.value = students[i].Amount;
+        StudentNUM.value = id;
+        Scholarship.value = ScholarshipToPass;
+        Reception.value = ReceptionistToPass;
+
+        
+        if (first) {
+          fresh.value = 'Student';
+        } else {
+          fresh.value = 'Fresh';
+        }
+      });
 
       tableBody.appendChild(newRow);
     }
-
-    
-
-
   };
 
 
-  const frmSubmit = document.querySelector("#frmSubmit")
-  jQuery(frmSubmit).on('submit', function (e) {
+  const alertMsg = document.querySelector('.alertMsg');
+  jQuery('#frmSubmit').on('submit', function (e) {
     e.preventDefault();
     jQuery.ajax({
       url: 'https://script.google.com/macros/s/AKfycbytlYxtnL1itZablK2TT4B6Mm2e6EWFSn-PYrVtIb5hT43gsJR1cqa3zR-C80UpNe6sVQ/exec',
@@ -181,10 +214,42 @@ async function showDeadlines(id) {
       success: function (result) {
         jQuery('#frmSubmit')[0].reset();
         // Display success message here
-        jQuery('#msg').html('Data sent successfully.');
+        alertMsg.classList.add('alert', 'alert-success');
+        alertMsg.style.width = '25%';
+        alertMsg.style.position = 'fixed';
+        alertMsg.style.top = '0';
+        alertMsg.style.left = '0';
+        alertMsg.style.margin = '20px';
+        alertMsg.style.transition = "all 0.5s ease-in-out";
+        alertMsg.innerHTML = '<strong>Success!</strong> Payment added successfully.';
+        alertMsg.style.display = "block";
+        alertMsg.style.opacity = "0";
+        setTimeout(function () {
+          alertMsg.style.opacity = "1";
+        }, 10);
+        setTimeout(function () {
+          alertMsg.style.display = "none";
+          location.reload();
+
+        }, 2000);
       },
       error: function () {
-        jQuery('#msg').html('An error occurred. Please try again.');
+        // Display error message here
+        alertMsg.classList.add('alert', 'alert-danger');
+        alertMsg.style.width = '25%';
+        alertMsg.style.position = 'fixed';
+        alertMsg.style.top = '0';
+        alertMsg.style.left = '0';
+        alertMsg.style.transition = "all 0.5s ease-in-out";
+        alertMsg.innerHTML = '<strong>Error!</strong> An error occurred. Please try again.';
+        alertMsg.style.display = "block";
+        alertMsg.style.opacity = "0";
+        setTimeout(function () {
+          alertMsg.style.opacity = "1";
+        }, 10);
+        setTimeout(function () {
+          alertMsg.style.display = "none";
+        }, 2000);
       },
       complete: function () {
         jQuery('#spinner-container').empty();
@@ -194,6 +259,8 @@ async function showDeadlines(id) {
 
   hide(); // hide the loading overlay once the requests are shown
 }
+
+
 
 var paramsDead = new URLSearchParams(window.location.search);
 var id = paramsDead.get('id');

@@ -159,6 +159,8 @@ if (savedData) {
 
 // Add a new variable to store the ID of the user to be passed to the other page
 var idToPass = 0;
+var ScholarshipToPass;
+var ReceptionistToPass;
 
 
 async function display(value) {
@@ -218,7 +220,11 @@ async function display(value) {
     Requestss.innerHTML = user.Requestss;
     Complaintss.innerHTML = user.Complaintss;
     idToPass = user.ID;
+    ScholarshipToPass = user.Scholarship;
+    ReceptionistToPass = user.Receptionist;
     sessionStorage.setItem("idToPass", idToPass);
+    sessionStorage.setItem("ScholarshipToPass", ScholarshipToPass);
+    sessionStorage.setItem("ReceptionistToPass", ReceptionistToPass);
 
   });
 
