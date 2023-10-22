@@ -161,6 +161,7 @@ if (savedData) {
 var idToPass = 0;
 var ScholarshipToPass;
 var ReceptionistToPass;
+var groupToPass;
 
 
 async function display(value) {
@@ -177,6 +178,7 @@ async function display(value) {
       img: element.image,
       IdNumber: element.IdNational,
       DOB: element.DateOfBirth,
+      StudyType: element.StudyType,
       Grade: element.Grade,
       Scholarship: element.Scholarship,
       Receptionist: element.Receptionist,
@@ -225,6 +227,8 @@ async function display(value) {
     sessionStorage.setItem("idToPass", idToPass);
     sessionStorage.setItem("ScholarshipToPass", ScholarshipToPass);
     sessionStorage.setItem("ReceptionistToPass", ReceptionistToPass);
+    groupToPass = user.StudyType;
+    sessionStorage.setItem("groupToPass", groupToPass);
 
   });
 

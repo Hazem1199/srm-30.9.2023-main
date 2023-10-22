@@ -123,6 +123,10 @@ async function showDeadlines(id) {
                         <input name="Fesh/St" type="text" placeholder="Scholarship" id="fresh" class="form-control" >
                         <label for="fresh">Scholarship</label>
                       </div>
+                      <div class="form-group form-floating" style="display:none ;">
+                        <input name="Study type" type="text" placeholder="Scholarship" id="StudyType" class="form-control" >
+                        <label for="StudyType">Scholarship</label>
+                      </div>
 
 
                       <div class="form-group mt-3 form-floating">
@@ -171,6 +175,7 @@ async function showDeadlines(id) {
         const id = sessionStorage.getItem("idToPass");
         const ScholarshipToPass = sessionStorage.getItem("ScholarshipToPass");
         const ReceptionistToPass = sessionStorage.getItem("ReceptionistToPass");
+        const groupToPass = sessionStorage.getItem("groupToPass");
 
         // Get the "SelectDueDate" element. 
         const selectDueDate = document.querySelector('#SelectDueDate');
@@ -179,6 +184,7 @@ async function showDeadlines(id) {
         const Scholarship = document.querySelector('#Scholarship');
         const Reception = document.querySelector('#Reception');
         const fresh = document.querySelector('#fresh');
+        const StudyType = document.querySelector('#StudyType');
 
         // Set the value of the "SelectDueDate" element to the due date of the student in the current row.
         selectDueDate.value = students[i]['Due Date'];
@@ -186,6 +192,8 @@ async function showDeadlines(id) {
         StudentNUM.value = id;
         Scholarship.value = ScholarshipToPass;
         Reception.value = ReceptionistToPass;
+        StudyType.value = groupToPass;
+
 
         
         if (first) {
@@ -231,7 +239,7 @@ async function showDeadlines(id) {
           alertMsg.style.display = "none";
           location.reload();
 
-        }, 2000);
+        }, 5000);
       },
       error: function () {
         // Display error message here

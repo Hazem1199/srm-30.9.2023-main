@@ -48,6 +48,8 @@ async function getInfoGroup(id) {
 
 }
 
+
+
 async function showAllGroup(id) {
   try {
     change()
@@ -150,6 +152,10 @@ async function showAllGroup(id) {
         let grade = student[gradeProp];
         let attendance = student[attendanceProp];
 
+
+
+
+
         row.innerHTML = `
                   <td>${formattedDate}</td>
                   <td>${group}</td>
@@ -173,6 +179,8 @@ async function showAllGroup(id) {
           document.querySelector('.divTableBody').appendChild(row);
         }
       }
+      // save group value to pass it to deadline form 
+      
 
     })
     hide()
@@ -213,6 +221,7 @@ async function showAllGroup(id) {
 var paramsGroup = new URLSearchParams(window.location.search);
 var id = paramsGroup.get('id');
 showAllGroup(id);
+
 
 // add an event listener to the window object to run the `change()` function when a new window is opened
 window.addEventListener('open', change);

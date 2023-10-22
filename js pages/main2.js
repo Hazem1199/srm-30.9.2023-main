@@ -295,6 +295,8 @@ payBtnInvoice.addEventListener('click', () => {
     const id = sessionStorage.getItem("idToPass");
     const ScholarshipToPass = sessionStorage.getItem("ScholarshipToPass");
     const ReceptionistToPass = sessionStorage.getItem("ReceptionistToPass");
+    const groupToPass = sessionStorage.getItem("groupToPass");
+
     console.log(id , ScholarshipToPass , ReceptionistToPass);
 
     // Get the "SelectDueDate" element. 
@@ -302,12 +304,16 @@ payBtnInvoice.addEventListener('click', () => {
     const Scholarship = document.querySelector('#Scholarship');
     const Reception = document.querySelector('#Reception');
     const fresh = document.querySelector('#fresh');
+    const StudyType = document.querySelector('#StudyType');
+
 
     // Set the value of the "SelectDueDate" element to the due date of the student in the current row.
     StudentNUM.value = id;
     Scholarship.value = ScholarshipToPass;
     Reception.value = ReceptionistToPass;
+    StudyType.value = groupToPass;
     fresh.value = 'Student';
+
 
 });
 
