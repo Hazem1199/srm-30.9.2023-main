@@ -439,6 +439,148 @@ logOut.addEventListener('click', () => {
   localStorage.clear();
 })
 
+
+//for pervent back btn of browser
+function preventBack() { window.history.forward(); }
+setTimeout("preventBack()", 0);
+window.onunload = function () { null };
+
+// for Qr code btn 
+jQuery('#digitalId').on('submit', function (e) {
+  e.preventDefault();
+  jQuery.ajax({
+    url: 'https://script.google.com/macros/s/AKfycby44o-bMq1bUH1Gw8gBlb39RrOkHJXtHqQVkADmeP1uIh_udRVs1YP6Re4YuoVqJgkyvA/exec',
+    type: 'post',
+    data: jQuery('#digitalId').serialize(),
+    
+    success: function (result) {
+      jQuery('#digitalId')[0].reset();
+      // Display success message here
+      alertMsg.classList.add('alert', 'alert-success');
+      alertMsg.style.width = '25%';
+      alertMsg.style.position = 'fixed';
+      alertMsg.style.top = '0';
+      alertMsg.style.left = '38%';
+      alertMsg.style.margin = '20px';
+      alertMsg.style.transition = "all 0.5s ease-in-out";
+      alertMsg.innerHTML = '<strong>Success!</strong> QR Code Send successfully.';
+      alertMsg.style.display = "block";
+      alertMsg.style.opacity = "0";
+      setTimeout(function () {
+        alertMsg.style.opacity = "1";
+      }, 10);
+      setTimeout(function () {
+        alertMsg.style.display = "none";
+
+      }, 2000);
+    },
+    error: function () {
+      // Display error message here
+      alertMsg.classList.add('alert', 'alert-danger');
+      alertMsg.style.width = '25%';
+      alertMsg.style.position = 'fixed';
+      alertMsg.style.top = '0';
+      alertMsg.style.left = '38%';
+      alertMsg.style.margin = '20px';
+      alertMsg.style.transition = "all 0.5s ease-in-out";
+      alertMsg.innerHTML = '<strong>Error!</strong> An error occurred. Please try again.';
+      alertMsg.style.display = "block";
+      alertMsg.style.opacity = "0";
+      setTimeout(function () {
+        alertMsg.style.opacity = "1";
+      }, 10);
+      setTimeout(function () {
+        alertMsg.style.display = "none";
+      }, 2000);
+    },
+    complete: function () {
+      jQuery('#spinner-container').empty();
+    }
+  });
+});
+const alertMsg = document.querySelector('.alertMsg');
+
+const digitalIdBtn = document.querySelector('.digitalIdBtn');
+digitalIdBtn.addEventListener('click' , () => {
+  const id = sessionStorage.getItem("idToPass");
+  
+  const qrCodeId = document.querySelector('#qrCodeId');
+  const Emp = document.querySelector('#Emp');
+
+  qrCodeId.value = id
+  Emp.value = userr
+
+} )
+
+
+
+// for App btn 
+jQuery('#App').on('submit', function (e) {
+  e.preventDefault();
+  jQuery.ajax({
+    url: 'https://script.google.com/macros/s/AKfycbzH2q6PplOKtYWlnApCJDX0x_oSqTBLB52EpXrB_8S9TmIA1nFfGk2UgtTHd66OlqwMxw/exec',
+    type: 'post',
+    data: jQuery('#App').serialize(),
+    
+    success: function (result) {
+      jQuery('#App')[0].reset();
+      // Display success message here
+      alertMsg.classList.add('alert', 'alert-success');
+      alertMsg.style.width = '25%';
+      alertMsg.style.position = 'fixed';
+      alertMsg.style.top = '0';
+      alertMsg.style.left = '38%';
+      alertMsg.style.margin = '20px';
+      alertMsg.style.transition = "all 0.5s ease-in-out";
+      alertMsg.innerHTML = '<strong>Success!</strong> QR Code Send successfully.';
+      alertMsg.style.display = "block";
+      alertMsg.style.opacity = "0";
+      setTimeout(function () {
+        alertMsg.style.opacity = "1";
+      }, 10);
+      setTimeout(function () {
+        alertMsg.style.display = "none";
+
+      }, 2000);
+    },
+    error: function () {
+      // Display error message here
+      alertMsg.classList.add('alert', 'alert-danger');
+      alertMsg.style.width = '25%';
+      alertMsg.style.position = 'fixed';
+      alertMsg.style.top = '0';
+      alertMsg.style.left = '38%';
+      alertMsg.style.margin = '20px';
+      alertMsg.style.transition = "all 0.5s ease-in-out";
+      alertMsg.innerHTML = '<strong>Error!</strong> An error occurred. Please try again.';
+      alertMsg.style.display = "block";
+      alertMsg.style.opacity = "0";
+      setTimeout(function () {
+        alertMsg.style.opacity = "1";
+      }, 10);
+      setTimeout(function () {
+        alertMsg.style.display = "none";
+      }, 2000);
+    },
+    complete: function () {
+      jQuery('#spinner-container').empty();
+    }
+  });
+});
+
+const appBtn = document.querySelector('.appBtn');
+appBtn.addEventListener('click' , () => {
+  const id = sessionStorage.getItem("idToPass");
+  
+  const appId = document.querySelector('#appId');
+  const Emp1 = document.querySelector('#Emp1');
+
+  appId.value = id
+  Emp1.value = userr
+
+} )
+
+
 // window.addEventListener("popstate", function(event) {
 //   sessionStorage.clear();
 //   localStorage.clear();
@@ -469,6 +611,7 @@ logOut.addEventListener('click', () => {
 // console.log(user);
 
 const welcome = document.querySelector('.Welcome');
-var userr = localStorage.getItem("myUser");
+var userr = localStorage.getItem("myCode");
+console.log(userr);
 
 welcome.innerHTML = `Welcome ${userr}!`

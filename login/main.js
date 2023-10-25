@@ -87,8 +87,10 @@ const myButton = document.querySelector('.myButton');
 var correct = false;
 var count = 0;
 
+//old api : https://script.google.com/macros/s/AKfycbzx8H-FSFyj8P5VMxSx5n47ddnurdrbuhCXHr0VEN5ZjbferzGecElgJdEv9mdX3l2X/exec
+
 async function getdata() {
-    const url = `https://script.google.com/macros/s/AKfycbzx8H-FSFyj8P5VMxSx5n47ddnurdrbuhCXHr0VEN5ZjbferzGecElgJdEv9mdX3l2X/exec`;
+    const url = `https://script.google.com/macros/s/AKfycbwGn4b_1OweCIRjJGQ03HNlG1kVwndLZMQSyyuYrWa2oapsmflcM3Cp34ZqNh8Kh1Yb/exec`;
     response = await fetch(url);
     data = await response.json();
     return data;
@@ -107,10 +109,12 @@ myButton.addEventListener('click', async () => {
             const emp = {
                 username: user.Username,
                 password: user.Password,
-                role: user.Role
+                role: user.Role,
+                Code : user.Code
             }
             // console.log("test " + emp.username);
             localStorage.setItem('myUser', emp.username)
+            localStorage.setItem('myCode', emp.Code)
             localStorage.setItem('myUserRole', emp.role)
             correct = true;
             return;

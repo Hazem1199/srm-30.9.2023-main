@@ -10,6 +10,8 @@
     integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/brands.min.css"
     integrity="sha512-L+sMmtHht2t5phORf0xXFdTC0rSlML1XcraLTrABli/0MMMylsJi3XA23ReVQkZ7jLkOEIMicWGItyK4CAt2Xw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -156,8 +158,10 @@
     <div class="content  ">
       <!--start head  -->
 
-      <div class="head bg-white between-flex">
-        <form class="searchCon">
+      <div class="head bg-white d-flex">
+        
+        <form class="searchCon flex-grow-1">
+          <div class="alertMsg"></div>
           <div class="search p-relative">
             <input class="rad-15" type="search" id="searchInput" name="search" placeholder="Write ID...." required>
           </div>
@@ -165,6 +169,36 @@
             <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
           </div>
         </form>
+        <!-- <button type="submit" class="btn btn-outline-primary mx-3 digitalId">Primary</button> -->
+        <!-- <button class="learn-more digitalId" ><iconify-icon icon="mingcute:faceid-fill" style="color: #0b6fa4;" width="25" height="25" flip="horizontal"></iconify-icon> Qr Code </button> -->
+        <form method="POST" id="digitalId">
+          <button id="digitalId"  type="submit" class="btn button digitalIdBtn mx-1"><iconify-icon class="qrIcon mx-1" icon="bi:qr-code" width="23" height="23"></iconify-icon>   
+            <p class="mb-0">QR</p>
+          </button>
+        
+        <div class="form-group form-floating" style="display:none ;">
+          <input name="ID" type="number" placeholder="Scholarship" id="qrCodeId" class="form-control" >
+          <label for="qrCodeId">Scholarship</label>
+        </div>
+        <div class="form-group form-floating" style="display:none ;">
+          <input name="Employee" type="text" placeholder="Scholarship" id="Emp" class="form-control" >
+          <label for="Emp">Scholarship</label>
+        </div>
+      </form>
+      <form method="POST" id="App">
+        <button id="digitalId"  type="submit" class="btn button appBtn mx-3"><iconify-icon class="qrIcon mx-1" icon="ic:twotone-app-shortcut" width="23" height="23"></iconify-icon>   
+          <p class="mb-0">App</p>
+        </button>
+      
+      <div class="form-group form-floating" style="display:none ;">
+        <input name="ID" type="number" placeholder="Scholarship" id="appId" class="form-control" >
+        <label for="appId">Scholarship</label>
+      </div>
+      <div class="form-group form-floating" style="display:none ;">
+        <input name="Employee" type="text" placeholder="Scholarship" id="Emp1" class="form-control" >
+        <label for="Emp1">Scholarship</label>
+      </div>
+    </form>
         <div>
           <!-- <img style="width: 60px;" src="./imgs/1615473689936.jfif" alt="" srcset=""> -->
         </div>
@@ -377,7 +411,8 @@
                       class="navbar-toggler-icon"></span></button>
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto justify-content-center">
-                      <li class="nav-item px-lg-4"><a class="nav-link text-uppercase homeBtn" href="./SRM.html">Home</a></li>
+                      <li class="nav-item px-lg-4"><a class="nav-link text-uppercase homeBtn" href="./SRM.html">Home</a>
+                      </li>
                       <li class="nav-item px-lg-4"><a class="nav-link text-uppercase invoiceBtn "
                           href="./invoice.html">Invoice</a></li>
                       <!-- <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="#">Products</a></li> -->
@@ -716,6 +751,9 @@
 
   <script src="./bootstrap-5.2.3-dist/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+
 
 
   <script src="./js pages/main.js"></script>
